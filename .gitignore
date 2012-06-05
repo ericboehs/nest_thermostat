@@ -1,0 +1,8 @@
+*.gem
+.bundle
+.config
+pkg
+spec/reports
+test/tmp
+test/version_tmp
+tmp
