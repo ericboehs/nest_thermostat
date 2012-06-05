@@ -1,3 +1,4 @@
 source :rubygems
 
-gem 'httparty', '~> 0.8.3'
+# Specify your gem's dependencies in nest_thermostat.gemspec
+gemspec
