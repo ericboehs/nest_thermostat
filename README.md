@@ -1,4 +1,4 @@
-# NestThermostat
+# Nest Thermostat
 
 This gem allows you to get and set the temperature of your Nest
 thermostat. You can also get and set the away status and get the
@@ -71,6 +71,37 @@ Feel free to implement anything you see useful and submit a pull
 request. I'd love to see other information like scheduling or multiple
 device/location support added.
 
+
+## Alfred Extension
+
+If you use Alfred.app for OS X you may be interested in an extension.
+[Download it](http://erc.bz/H90W). You'll need ruby 1.9+ and this gem
+installed. Then just enter your nest email/pass as the arguments in the
+alfred extension (after you import it). It also uses [Growl](http://growl.info/downloads) to display
+output so you'll need that installed as well.
+
+![Screenshot of Alfred Extension](http://erc.bz/H9Hm/Image%202012.06.05%202:18:56%20PM.png) ![Screenshot of Alfred Extension Growl Output](http://erc.bz/H97m/Image%202012.06.05%202:34:49%20PM.png)
+
+
+Here are the commands it supports:
+```
+nest          # => Your Nest is set to 73°F
+nest 72       # => Your Nest was set to 72°F
+nest current  # => The current temperature is currently 71.51°F
+nest leaf     # => The leaf is off; you can fix that! (or: The leaf is on; you are energy efficient!)
+nest away     # => Your Nest is now set to away (or: Your Nest is now set to home.)
+nest home     # => Your Nest is now set to home
+nest humidity # => The relative humidity is currently 53%
+nest until    # => Your home will reach it's target temperature at 7:30pm
+```
+
+There are some aliases as well:
+```
+nest current | current temp | current temperature
+nest home | back
+nest leaf | green
+nest until | til | time
+```
 
 ## Contributing
 
