@@ -47,6 +47,9 @@ puts @nest.away # => true
 Default temperatures are in fahrenheit but you can change to celsius or kelvin:
 ```ruby
 @nest = NestThermostat::Nest.new({..., temperature_scale: 'c'}) # Or C, Celsius or celsius
+
+# -- OR --
+
 @nest.temperature_scale = 'k' # or K, Kelvin or kelvin
 ```
 
