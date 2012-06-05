@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["ericboehs@gmail.com"]
   gem.description   = %q{Control your nest thermostat}
   gem.summary       = %q{View and set temperature and away status for your Nest}
-  gem.homepage      = "http://github.com/ericboehs/nest-ruby"
+  gem.homepage      = "http://github.com/ericboehs/nest_thermostat"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
