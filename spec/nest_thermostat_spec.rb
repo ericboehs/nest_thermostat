@@ -18,6 +18,10 @@ describe NestThermostat::Nest do
     @nest.status['device'].first[1]['mac_address'].should match /(\d|[a-f]|[A-F])+/
   end
 
+  it "gets the pubic ip address",focus:true do
+    @nest.public_ip.should match /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?$/
+  end
+
   it "gets the leaf status" do
     @nest.leaf.should_not be_nil
   end

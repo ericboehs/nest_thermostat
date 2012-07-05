@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    nest_thermostat (0.0.1)
+    nest_thermostat (0.0.3)
       httparty (~> 0.8.3)
 
 GEM

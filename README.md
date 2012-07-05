@@ -75,7 +75,7 @@ device/location support added.
 ## Alfred Extension
 
 If you use Alfred.app for OS X you may be interested in an extension.
-[Download it](http://erc.bz/H90W). You'll need ruby 1.9+ and this gem
+[Download it](http://erc.bz/HtOe). You'll need ruby 1.9+ and this gem
 installed. Then just enter your nest email/pass as the arguments in the
 alfred extension (after you import it). It also uses [Growl](http://growl.info/downloads) to display
 output so you'll need that installed as well.
@@ -93,6 +93,7 @@ nest away     # => Your Nest is now set to away (or: Your Nest is now set to hom
 nest home     # => Your Nest is now set to home
 nest humidity # => The relative humidity is currently 53%
 nest until    # => Your home will reach it's target temperature at 7:30pm
+nest ip       # => The current ip address is 5.68.127.16. I placed it in your clipboard.
 ```
 
 There are some aliases as well:

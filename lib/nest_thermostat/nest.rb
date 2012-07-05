@@ -51,6 +51,10 @@ module NestThermostat
       result
     end
 
+    def public_ip
+      status["metadata"][self.device_id]["last_ip"].strip
+    end
+
     def leaf
       status["device"][self.device_id]["leaf"]
     end
