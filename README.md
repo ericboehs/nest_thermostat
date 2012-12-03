@@ -77,8 +77,7 @@ device/location support added.
 If you use Alfred.app for OS X you may be interested in an extension.
 [Download it](http://erc.bz/HtOe). You'll need ruby 1.9+ and this gem
 installed. Then just enter your nest email/pass as the arguments in the
-alfred extension (after you import it). It also uses [Growl](http://growl.info/downloads) to display
-output so you'll need that installed as well.
+alfred extension (after you import it).
 
 ![Screenshot of Alfred Extension](http://erc.bz/H9Hm/Image%202012.06.05%202:18:56%20PM.png) ![Screenshot of Alfred Extension Growl Output](http://erc.bz/H97m/Image%202012.06.05%202:34:49%20PM.png)
 
