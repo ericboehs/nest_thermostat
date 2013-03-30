@@ -1,5 +1,8 @@
+require 'dotenv'
+require 'pry'
 require 'nest_thermostat'
 
+Dotenv.load
 RSpec.configure do |c|
     c.filter_run focus: true
     c.run_all_when_everything_filtered = true
@@ -14,11 +17,16 @@ describe NestThermostat::Nest do
     @nest.transport_url.should match /transport.nest.com/
   end
 
+  it "detects invalid logins" do
+    expect { NestThermostat::Nest.new({email: 'invalid@example.com', password: 'asdf'})
+    }.to raise_error
+  end
+
   it "gets the status" do
     @nest.status['device'].first[1]['mac_address'].should match /(\d|[a-f]|[A-F])+/
   end
 
-  it "gets the pubic ip address",focus:true do
+  it "gets the pubic ip address" do
     @nest.public_ip.should match /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?$/
   end
 

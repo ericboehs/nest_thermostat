@@ -10,7 +10,7 @@ module NestThermostat
       :transport_host, :structure_id, :device_id, :headers
 
     def initialize(config = {})
-      raise 'Please specify your nest email' unless config[:email]
+      raise 'Please specify your nest email'    unless config[:email]
       raise 'Please specify your nest password' unless config[:password]
 
       # User specified information
@@ -21,10 +21,10 @@ module NestThermostat
       self.user_agent        = config[:user_agent] ||'Nest/1.1.0.10 CFNetwork/548.0.4'
 
       # Login and get token, user_id and URLs
-      login
-      self.token          = login["access_token"]
-      self.user_id        = login["userid"]
-      self.transport_url  = login["urls"]["transport_url"]
+      perform_login
+      self.token          = @auth["access_token"]
+      self.user_id        = @auth["userid"]
+      self.transport_url  = @auth["urls"]["transport_url"]
       self.transport_host = URI.parse(self.transport_url).host
       self.headers = {
         'Host'                  => self.transport_host,
@@ -52,7 +52,7 @@ module NestThermostat
     end
 
     def public_ip
-      status["metadata"][self.device_id]["last_ip"].strip
+      status["track"][self.device_id]["last_ip"].strip
     end
 
     def leaf
@@ -107,14 +107,15 @@ module NestThermostat
     end
 
     private
-    def login
+    def perform_login
       login_request = HTTParty.post(
                         self.login_url,
                         body:    { username: self.email, password: self.password },
                         headers: { 'User-Agent' => self.user_agent }
                       )
 
-      self.auth = JSON.parse(login_request.body) rescue nil
+      self.auth ||= JSON.parse(login_request.body) rescue nil
+      raise 'Invalid login credentials' if self.auth.has_key?('error') && self.auth['error'] == "access_denied"
     end
 
     def convert_temp_for_get(degrees)
@@ -154,6 +155,5 @@ module NestThermostat
     def f2c(degrees)
       (degrees.to_f - 32) * 5 / 9
     end
-
   end
 end
