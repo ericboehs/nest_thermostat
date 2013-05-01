@@ -7,7 +7,8 @@ module NestThermostat
   class Nest
     attr_accessor :email, :password, :login_url, :user_agent, :auth,
       :temperature_scale, :login, :token, :user_id, :transport_url,
-      :transport_host, :structure_id, :device_id, :headers
+      :transport_host, :structure_id, :device_id, :headers, :thermostat_idx,
+      :num_thermostats
 
     def initialize(config = {})
       raise 'Please specify your nest email'    unless config[:email]
@@ -19,6 +20,8 @@ module NestThermostat
       self.temperature_scale = config[:temperature_scale] || config[:temp_scale] || 'f'
       self.login_url         = config[:login_url] || 'https://home.nest.com/user/login'
       self.user_agent        = config[:user_agent] ||'Nest/1.1.0.10 CFNetwork/548.0.4'
+      self.thermostat_idx    = config[:thermostat_idx] || 0
+      raise 'Thermostat index out of range' unless self.thermostat_idx >= 0
 
       # Login and get token, user_id and URLs
       perform_login
@@ -46,7 +49,9 @@ module NestThermostat
       result = JSON.parse(request.body) rescue nil
 
       self.structure_id = result['user'][user_id]['structures'][0].split('.')[1]
-      self.device_id    = result['structure'][structure_id]['devices'][0].split('.')[1]
+      self.num_thermostats = result['structure'][structure_id]['num_thermostats'].to_i
+      raise 'Thermostat index out of range' unless self.thermostat_idx < self.num_thermostats
+      self.device_id    = result['structure'][structure_id]['devices'][self.thermostat_idx].split('.')[1]
 
       result
     end
@@ -57,6 +62,10 @@ module NestThermostat
 
     def leaf
       status["device"][self.device_id]["leaf"]
+    end
+
+    def name
+      status["shared"][self.device_id]["name"]
     end
 
     def humidity
