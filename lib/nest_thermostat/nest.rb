@@ -106,6 +106,18 @@ module NestThermostat
       self.temperature_scale = scale
     end
 
+    def fan_mode
+      status["device"][self.device_id]["fan_mode"]
+    end
+
+    def fan_mode=(state)
+      HTTParty.post(
+        "#{self.transport_url}/v2/put/device.#{self.device_id}",
+        body: %Q({"fan_mode":"#{state}"}),
+        headers: self.headers
+      ) rescue nil
+    end
+
     private
     def perform_login
       login_request = HTTParty.post(
