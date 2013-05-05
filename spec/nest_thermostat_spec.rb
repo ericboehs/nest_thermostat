@@ -83,4 +83,16 @@ describe NestThermostat::Nest do
     @nest.target_temp_at.should_not be_nil # (DateObject or false)
     @nest.target_temperature_at.should_not be_nil # (DateObject or false)
   end
+ 
+  it "gets the fan status" do
+    %w(on auto).should include @nest.fan_mode
+  end
+
+  it "sets the fan mode" do
+    @nest.fan_mode = "on"
+    @nest.fan_mode.should == "on"
+    @nest.fan_mode = "auto"
+    @nest.fan_mode.should == "auto"
+  end
+
 end
