@@ -31,6 +31,7 @@ puts @nest.target_temp_at        # => 2012-06-05 14:28:48 +0000 # Ruby date obje
 puts @nest.away                  # => false
 puts @nest.leaf                  # => true # May take a few seconds after a temp change
 puts @nest.humidity              # => 54 # Relative humidity in percent
+puts @nest.current_outdoor_temp  # => 98.60
 ```
 
 Change the temperature or away status:

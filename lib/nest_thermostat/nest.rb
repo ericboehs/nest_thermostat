@@ -7,7 +7,8 @@ module NestThermostat
   class Nest
     attr_accessor :email, :password, :login_url, :user_agent, :auth,
       :temperature_scale, :login, :token, :user_id, :transport_url,
-      :transport_host, :structure_id, :device_id, :headers
+      :transport_host, :structure_id, :device_id, :headers,
+      :outdoor_temp_url, :outdoor_temp
 
     def initialize(config = {})
       raise 'Please specify your nest email'    unless config[:email]
@@ -22,10 +23,11 @@ module NestThermostat
 
       # Login and get token, user_id and URLs
       perform_login
-      self.token          = @auth["access_token"]
-      self.user_id        = @auth["userid"]
-      self.transport_url  = @auth["urls"]["transport_url"]
-      self.transport_host = URI.parse(self.transport_url).host
+      self.token            = @auth["access_token"]
+      self.user_id          = @auth["userid"]
+      self.transport_url    = @auth["urls"]["transport_url"]
+      self.transport_host   = URI.parse(self.transport_url).host
+      self.outdoor_temp_url = @auth["urls"]["weather_url"]
       self.headers = {
         'Host'                  => self.transport_host,
         'User-Agent'            => self.user_agent,
@@ -49,6 +51,16 @@ module NestThermostat
       self.device_id    = result['structure'][structure_id]['devices'][0].split('.')[1]
 
       result
+    end
+
+    def postal_code
+      status['device'][self.device_id]['postal_code']
+    end
+
+    def current_outdoor_temp
+      odrequest = HTTParty.get("#{self.outdoor_temp_url}#{self.postal_code}")
+      odresult = JSON.parse(odrequest.body) rescue nil
+      convert_temp_for_get(self.outdoor_temp = odresult[self.postal_code]['current']['temp_c'])
     end
 
     def public_ip
