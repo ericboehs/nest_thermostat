@@ -2,6 +2,7 @@ require 'rubygems'
 require 'httparty'
 require 'json'
 require 'uri'
+require 'awesome_print'
 
 module NestThermostat
   class Nest
@@ -132,9 +133,9 @@ module NestThermostat
 
     def convert_temp_for_get(degrees)
       case self.temperature_scale
-      when /f|F|(F|f)ahrenheit/
+      when /[fF](ahrenheit)?/
         c2f(degrees).round(3)
-      when /k|K|(K|k)elvin/
+      when /[kK](elvin)?/
         c2k(degrees).round(3)
       else
         degrees
@@ -143,9 +144,9 @@ module NestThermostat
 
     def convert_temp_for_set(degrees)
       case self.temperature_scale
-      when /f|F|(F|f)ahrenheit/
+      when /[fF](ahrenheit)?/
         f2c(degrees).round(5)
-      when /k|K|(K|k)elvin/
+      when /[kK](elvin)?/
         k2c(degrees).round(5)
       else
         degrees

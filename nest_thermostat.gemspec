@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.version       = NestThermostat::VERSION
   gem.add_dependency "httparty", "~> 0.8.3"
 
-  gem.add_development_dependency "rspec", "~> 2.10"
+  gem.add_development_dependency "rspec", "~> 3.1"
   gem.add_development_dependency "awesome_print"
   gem.add_development_dependency "dotenv"
   gem.add_development_dependency "pry"
