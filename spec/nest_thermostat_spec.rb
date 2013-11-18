@@ -10,89 +10,90 @@ end
 
 describe NestThermostat::Nest do
   before(:all) do
-    @nest = NestThermostat::Nest.new({email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS'], temperature_scale: 'F'})
+    @nest = NestThermostat::Nest.new(email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS'], temperature_scale: 'F')
   end
 
   it "logs in to home.nest.com" do
-    @nest.transport_url.should match /transport.nest.com/
+    expect(@nest.transport_url).to match(/transport\.nest\.com/)
   end
 
   it "detects invalid logins" do
-    expect { NestThermostat::Nest.new({email: 'invalid@example.com', password: 'asdf'})
+    expect {
+      NestThermostat::Nest.new({email: 'invalid@example.com', password: 'asdf'})
     }.to raise_error
   end
 
   it "gets the status" do
-    @nest.status['device'].first[1]['mac_address'].should match /(\d|[a-f]|[A-F])+/
+    expect(@nest.status['device'].first[1]['mac_address']).to match(/(\d|[a-f]|[A-F])+/)
   end
 
   it "gets the pubic ip address" do
-    @nest.public_ip.should match /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?$/
+    expect(@nest.public_ip).to match(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?$/)
   end
 
   it "gets the leaf status" do
-    @nest.leaf.should_not be_nil
+    expect(@nest.leaf).to_not be_nil
   end
 
   it "gets away status" do
-    @nest.away.should_not be_nil
+    expect(@nest.away).to_not be_nil
   end
 
   it "sets away status" do
     @nest.away = true
-    @nest.away.should == true
+    expect(@nest.away).to be(true)
     @nest.away = false
-    @nest.away.should == false
+    expect(@nest.away).to be(false)
   end
 
   it "gets the current temperature" do
-    @nest.current_temperature.should be_a_kind_of(Numeric)
-    @nest.current_temp.should be_a_kind_of(Numeric)
+    expect(@nest.current_temperature).to be_a_kind_of(Numeric)
+    expect(@nest.current_temp).to be_a_kind_of(Numeric)
   end
 
   it "gets the relative humidity" do
-    @nest.humidity.should be_a_kind_of(Numeric)
+    expect(@nest.humidity).to be_a_kind_of(Numeric)
   end
 
   it "gets the temperature" do
-    @nest.temperature.should be_a_kind_of(Numeric)
-    @nest.temp.should be_a_kind_of(Numeric)
+    expect(@nest.temperature).to be_a_kind_of(Numeric)
+    expect(@nest.temp).to be_a_kind_of(Numeric)
   end
 
   it "sets the temperature" do
     @nest.temp = '74'
-    @nest.temp.round.should eq(74)
+    expect(@nest.temp.round).to eq(74)
 
     @nest.temperature = '73'
-    @nest.temperature.round.should eq(73)
+    expect(@nest.temperature).to eq(73)
   end
 
   it "sets the temperature in celsius" do
     @nest.temperature_scale = 'c'
     @nest.temperature = '22'
-    @nest.temperature.should eq(22.0)
+    expect(@nest.temperature).to eq(22.0)
   end
 
   it "sets the temperature in kelvin" do
     @nest.temp_scale = 'k'
     @nest.temperature = '296'
-    @nest.temperature.should eq(296.0)
+    expect(@nest.temperature).to eq(296.0)
   end
 
   it "gets the target temperature time" do
-    @nest.target_temp_at.should_not be_nil # (DateObject or false)
-    @nest.target_temperature_at.should_not be_nil # (DateObject or false)
+    expect(@nest.target_temp_at).to_not be_nil # (DateObject or false)
+    expect(@nest.target_temperature_at).to_not be_nil # (DateObject or false)
   end
 
   it "gets the fan status" do
-    %w(on auto).should include @nest.fan_mode
+    expect(%w[on auto]).to include(@nest.fan_mode)
   end
 
   it "sets the fan mode" do
     @nest.fan_mode = "on"
-    @nest.fan_mode.should == "on"
+    expect(@nest.fan_mode).to eq("on")
     @nest.fan_mode = "auto"
-    @nest.fan_mode.should == "auto"
+    expect(@nest.fan_mode).to eq("auto")
   end
 
 end
