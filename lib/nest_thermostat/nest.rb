@@ -7,7 +7,7 @@ module NestThermostat
   class Nest
     attr_accessor :email, :password, :login_url, :user_agent, :auth,
       :temperature_scale, :login, :token, :user_id, :transport_url,
-      :transport_host, :structure_id, :device_id, :headers
+      :transport_host, :structure_id, :device_id, :headers, :names
 
     def initialize(config = {})
       raise 'Please specify your nest email'    unless config[:email]
@@ -38,6 +38,8 @@ module NestThermostat
       }
 
       # Set device and structure id
+      self.names = Hash.new
+      self.device = 0
       status
     end
 
@@ -46,9 +48,17 @@ module NestThermostat
       result = JSON.parse(request.body) rescue nil
 
       self.structure_id = result['user'][user_id]['structures'][0].split('.')[1]
-      self.device_id    = result['structure'][structure_id]['devices'][0].split('.')[1]
-
+      
+      result["shared"].each {|device, value| names[value['name']] = device } 
       result
+    end
+
+    def device=(device)
+      if device.class == String
+        self.device_id = self.names[device]
+      else
+        self.device_id    = status['structure'][structure_id]['devices'][device].split('.')[1]
+      end
     end
 
     def public_ip
@@ -84,6 +94,17 @@ module NestThermostat
     end
     alias_method :temp=, :temperature=
 
+    def set_temperature(degrees,name=self.names.keys.first)
+      degrees = convert_temp_for_set(degrees)
+
+      request = HTTParty.post(
+        "#{self.transport_url}/v2/put/shared.#{self.names[name]}",
+        body: %Q({"target_change_pending":true,"target_temperature":#{degrees}}),
+        headers: self.headers
+      ) rescue nil
+    end
+
+
     def target_temperature_at
       epoch = status["device"][self.device_id]["time_to_target"]
       epoch != 0 ? Time.at(epoch) : false
@@ -117,6 +138,10 @@ module NestThermostat
         headers: self.headers
       ) rescue nil
     end
+
+    # def name
+    #   status["device"][@nest.device_id]["name"]
+    # end
 
     private
     def perform_login
