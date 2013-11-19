@@ -7,7 +7,7 @@ module NestThermostat
   class Nest
     attr_accessor :email, :password, :login_url, :user_agent, :auth,
       :temperature_scale, :login, :token, :user_id, :transport_url,
-      :transport_host, :structure_id, :device_id, :headers
+      :transport_host, :structure_id, :device_id, :headers, :status_json
 
     def initialize(config = {})
       raise 'Please specify your nest email'    unless config[:email]
@@ -38,19 +38,27 @@ module NestThermostat
       }
 
       # Set device and structure id
-      status
+      update_status
     end
 
     def status
+      unless self.status_json
+        update_status
+      end
+      result = self.status_json
+    end
+      
+    def update_status
       request = HTTParty.get("#{self.transport_url}/v2/mobile/user.#{self.user_id}", headers: self.headers) rescue nil
       result = JSON.parse(request.body) rescue nil
 
       self.structure_id = result['user'][user_id]['structures'][0].split('.')[1]
       self.device_id    = result['structure'][structure_id]['devices'][0].split('.')[1]
-
+      self.status_json = result
       result
     end
-
+    alias_method :reload_status, :update_status
+    
     def public_ip
       status["track"][self.device_id]["last_ip"].strip
     end
@@ -58,22 +66,42 @@ module NestThermostat
     def leaf
       status["device"][self.device_id]["leaf"]
     end
-
+    
     def humidity
       status["device"][self.device_id]["current_humidity"]
     end
+    alias_method :current_humidity, :humidity
+    
+    def target_humidity
+      status["device"][self.device_id]["target_humidity"]
+    end
+    
+    def target_humidity=(percentage)
+      request = HTTParty.post(
+        "#{self.transport_url}/v2/put/shared.#{self.device_id}",
+        body: %Q({"target_change_pending":true,"target_humidity":#{percentage}}),
+        headers: self.headers
+      ) rescue nil    
+      update_status
+    end
+    alias_method :humidity=, :target_humidity=
 
-    def current_temperature
+    # Formerly current_temperature
+    def temperature
       convert_temp_for_get(status["shared"][self.device_id]["current_temperature"])
     end
-    alias_method :current_temp, :current_temperature
+    alias_method :temp, :temperature
+    alias_method :current_temp, :temperature
+    alias_method :current_temperature, :temperature
 
-    def temperature
+    # Formerly temperature
+    def target_temperature
       convert_temp_for_get(status["shared"][self.device_id]["target_temperature"])
     end
-    alias_method :temp, :temperature
+    alias_method :target_temp, :target_temperature
 
-    def temperature=(degrees)
+    # Formerly temperature=
+    def target_temperature=(degrees)
       degrees = convert_temp_for_set(degrees)
 
       request = HTTParty.post(
@@ -81,8 +109,12 @@ module NestThermostat
         body: %Q({"target_change_pending":true,"target_temperature":#{degrees}}),
         headers: self.headers
       ) rescue nil
+      update_status
     end
-    alias_method :temp=, :temperature=
+    alias_method :temp=, :target_temperature=
+    alias_method :temperature=, :target_temperature=
+    alias_method :current_temperature=, :target_temperature=
+    alias_method :target_temp=, :target_temperature=
 
     def target_temperature_at
       epoch = status["device"][self.device_id]["time_to_target"]
@@ -100,6 +132,7 @@ module NestThermostat
         body: %Q({"away_timestamp":#{Time.now.to_i},"away":#{!!state},"away_setter":0}),
         headers: self.headers
       ) rescue nil
+      update_status
     end
 
     def temp_scale=(scale)
