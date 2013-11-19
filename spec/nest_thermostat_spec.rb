@@ -95,4 +95,11 @@ describe NestThermostat::Nest do
     @nest.fan_mode.should == "auto"
   end
 
+  it "gets the current outside temperature" do
+    @nest.current_outdoor_temp.should be_a_kind_of(Numeric)
+  end
+
+  it "gets the postal code" do
+    @nest.postal_code.should_not be_nil
+  end
 end
