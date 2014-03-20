@@ -9,7 +9,7 @@ module NestThermostat
   class Nest
     attr_accessor :email, :password, :login_url, :user_agent, :auth,
       :temperature_scale, :login, :token, :user_id, :transport_url,
-      :transport_host, :structures, :headers
+      :transport_host, :structures, :headers, :auto_refresh
 
     def initialize(config = {})
       raise 'Please specify your nest email'    unless config[:email]
@@ -21,6 +21,7 @@ module NestThermostat
       self.temperature_scale = config[:temperature_scale] || config[:temp_scale] || 'f'
       self.login_url         = config[:login_url] || 'https://home.nest.com/user/login'
       self.user_agent        = config[:user_agent] ||'Nest/1.1.0.10 CFNetwork/548.0.4'
+      self.auto_refresh      = config[:auto_refresh] || false
       self.structures        = []
 
       # Login and get token, user_id and URLs
@@ -43,7 +44,7 @@ module NestThermostat
     end
 
     def status
-      @status ||= get_status(false)
+      self.auto_refresh ? get_status(false) : @status ||= get_status(false)
     end
 
     def refresh

@@ -22,26 +22,35 @@ Or install it yourself as:
 Get some useful info:
 ```ruby
 @nest = NestThermostat::Nest.new({email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS']})
-puts @nest.current_temperature   # => 75.00
-puts @nest.current_temp          # => 75.00
-puts @nest.temperature           # => 73.00
-puts @nest.temp                  # => 73.00
-puts @nest.target_temperature_at # => 2012-06-05 14:28:48 +0000 # Ruby date object or false
-puts @nest.target_temp_at        # => 2012-06-05 14:28:48 +0000 # Ruby date object or false
-puts @nest.away                  # => false
-puts @nest.leaf                  # => true # May take a few seconds after a temp change
-puts @nest.humidity              # => 54 # Relative humidity in percent
+@nest.structures                      # => Array of all Structures NestThermostat::Nest::Structure
+@nest.devices                         # => Array of all devices from all structures NestThermostat::Nest::Device
+@device = @nest.devices.first
+@structure = @nest.structures.first
+puts @device.current_temperature      # => 75.00
+puts @device.current_temp             # => 75.00
+puts @device.temperature              # => 73.00
+puts @device.temp                     # => 73.00
+puts @device.target_temperature_at    # => 2012-06-05 14:28:48 +0000 # Ruby date object or false
+puts @device.target_temp_at           # => 2012-06-05 14:28:48 +0000 # Ruby date object or false
+puts @structure.away                  # => false
+puts @device.leaf                     # => true # May take a few seconds after a temp change
+puts @device.humidity                 # => 54 # Relative humidity in percent
 ```
 
 Change the temperature or away status:
 ```ruby
-puts @nest.temperature # => 73.0
-puts @nest.temperature = 74.0
-puts @nest.temperature # => 74.0
+# @nest changes for all structures and all devices if applicable
+# @structure changes for all devices of the structure if applicable
 
-puts @nest.away # => false
-puts @nest.away = true
-puts @nest.away # => true
+puts @device.temperature # => 73.0
+puts @device.temperature = 74.0
+@nest.refresh
+puts @device.temperature # => 74.0
+
+puts @structure.away # => false
+puts @structure.away = true
+@nest.refresh
+puts @structure.away # => true
 ```
 
 Default temperatures are in fahrenheit but you can change to celsius or kelvin:
