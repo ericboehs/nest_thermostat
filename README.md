@@ -1,5 +1,7 @@
 # Nest Thermostat
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ericboehs/nest_thermostat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This gem allows you to get and set the temperature of your [Nest Thermostat](https://nest.com/thermostat). You can also get and set the away status and get the current temperature and target temperature time.
 
 
