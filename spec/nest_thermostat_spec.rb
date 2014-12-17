@@ -6,7 +6,7 @@ describe NestThermostat::Nest do
   end
 
   it "logs in to home.nest.com" do
-    expect(@nest.transport_url).to match(/transport\.nest\.com/)
+    expect(@nest.transport_url).to match(/transport\.(home\.)?nest\.com/)
   end
 
   it "detects invalid logins" do
