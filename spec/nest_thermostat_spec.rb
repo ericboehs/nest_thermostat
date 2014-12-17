@@ -3,7 +3,7 @@ require 'spec_helper'
 module NestThermostat
   describe Nest do
     before(:all) do
-      @nest = Nest.new(email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS'], temperature_scale: 'F')
+      @nest = Nest.new(email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS'], temperature_scale: :fahrenheit)
     end
 
     it "logs in to home.nest.com" do
@@ -17,7 +17,7 @@ module NestThermostat
     end
 
     it "does not remember the login email or password" do
-      nest = Nest.new(email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS'], temperature_scale: 'F')
+      nest = Nest.new(email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS'], temperature_scale: :fahrenheit)
 
       expect(nest).not_to respond_to(:email)
       expect(nest).not_to respond_to(:password)
@@ -69,13 +69,13 @@ module NestThermostat
     end
 
     it "sets the temperature in celsius" do
-      @nest.temperature_scale = 'c'
+      @nest.temperature_scale = :celsius
       @nest.temperature = '22'
       expect(@nest.temperature).to eq(22.0)
     end
 
     it "sets the temperature in kelvin" do
-      @nest.temp_scale = 'k'
+      @nest.temp_scale = :kelvin
       @nest.temperature = '296'
       expect(@nest.temperature).to eq(296.0)
     end

@@ -5,18 +5,19 @@ require 'uri'
 
 module NestThermostat
   class Nest
-    attr_accessor :login_url, :user_agent, :auth,
-      :temperature_scale, :login, :token, :user_id, :transport_url,
-      :transport_host, :structure_id, :device_id, :headers
+    attr_accessor :login_url, :user_agent, :auth, :login, :token, :user_id,
+      :transport_url, :transport_host, :structure_id, :device_id, :headers
+
+    attr_reader :temperature_scale
 
     def initialize(config = {})
       raise 'Please specify your nest email'    unless config[:email]
       raise 'Please specify your nest password' unless config[:password]
 
       # User specified information
-      @temperature_scale = config[:temperature_scale] || config[:temp_scale] || 'f'
-      @login_url         = config[:login_url] || 'https://home.nest.com/user/login'
-      @user_agent        = config[:user_agent] ||'Nest/1.1.0.10 CFNetwork/548.0.4'
+      self.temperature_scale = config[:temperature_scale] || config[:temp_scale] || :fahrenheit
+      @login_url  = config[:login_url] || 'https://home.nest.com/user/login'
+      @user_agent = config[:user_agent] ||'Nest/1.1.0.10 CFNetwork/548.0.4'
 
       # Login and get token, user_id and URLs
       perform_login(config[:email], config[:password])
@@ -101,9 +102,14 @@ module NestThermostat
       ) rescue nil
     end
 
-    def temp_scale=(scale)
-      self.temperature_scale = scale
+    def temperature_scale=(scale)
+      if %i[kelvin celsius fahrenheit].include?(scale)
+        @temperature_scale = scale
+      else
+        raise ArgumentError, "#{scale} is not a valid temperature scale"
+      end
     end
+    alias_method :temp_scale=, :temperature_scale=
 
     def fan_mode
       status["device"][device_id]["fan_mode"]
@@ -131,24 +137,18 @@ module NestThermostat
     end
 
     def convert_temp_for_get(degrees)
-      case self.temperature_scale
-      when /[fF](ahrenheit)?/
-        c2f(degrees).round(3)
-      when /[kK](elvin)?/
-        c2k(degrees).round(3)
-      else
-        degrees
+      case @temperature_scale
+      when :fahrenheit then c2f(degrees).round(5)
+      when :kelvin     then c2k(degrees).round(5)
+      when :celsius    then degrees
       end
     end
 
     def convert_temp_for_set(degrees)
-      case self.temperature_scale
-      when /[fF](ahrenheit)?/
-        f2c(degrees).round(5)
-      when /[kK](elvin)?/
-        k2c(degrees).round(5)
-      else
-        degrees
+      case @temperature_scale
+      when :fahrenheit then f2c(degrees).round(5)
+      when :kelvin     then k2c(degrees).round(5)
+      when :celsius    then degrees
       end
     end
 
