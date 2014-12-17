@@ -1,8 +1,7 @@
 # Nest Thermostat
 
-This gem allows you to get and set the temperature of your Nest
-thermostat. You can also get and set the away status and get the
-current temperature and target temperature time.
+This gem allows you to get and set the temperature of your [Nest Thermostat](https://nest.com/thermostat/life-with-nest-thermostat). You can also get and set the away status and get the current temperature and target temperature time.
+
 
 ## Installation
 
@@ -18,69 +17,63 @@ Or install it yourself as:
 
     $ gem install nest_thermostat
 
+
 ## Usage
+
 Get some useful info:
 ```ruby
-@nest = NestThermostat::Nest.new({email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS']})
-puts @nest.current_temperature   # => 75.00
-puts @nest.current_temp          # => 75.00
-puts @nest.temperature           # => 73.00
-puts @nest.temp                  # => 73.00
-puts @nest.target_temperature_at # => 2012-06-05 14:28:48 +0000 # Ruby date object or false
-puts @nest.target_temp_at        # => 2012-06-05 14:28:48 +0000 # Ruby date object or false
-puts @nest.away                  # => false
-puts @nest.leaf                  # => true # May take a few seconds after a temp change
-puts @nest.humidity              # => 54 # Relative humidity in percent
+nest = NestThermostat::Nest.new(email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS'])
+puts nest.current_temperature   # => 75.00
+puts nest.current_temp          # => 75.00
+puts nest.temperature           # => 73.00
+puts nest.temp                  # => 73.00
+puts nest.target_temperature_at # => 2012-06-05 14:28:48 +0000 # Ruby date object or false
+puts nest.target_temp_at        # => 2012-06-05 14:28:48 +0000 # Ruby date object or false
+puts nest.away                  # => false
+puts nest.leaf                  # => true # May take a few seconds after a temp change
+puts nest.humidity              # => 54 # Relative humidity in percent
 ```
 
 Change the temperature or away status:
 ```ruby
-puts @nest.temperature # => 73.0
-puts @nest.temperature = 74.0
-puts @nest.temperature # => 74.0
+puts nest.temperature # => 73.0
+puts nest.temperature = 74.0
+puts nest.temperature # => 74.0
 
-puts @nest.away # => false
-puts @nest.away = true
-puts @nest.away # => true
+puts nest.away # => false
+puts nest.away = true
+puts nest.away # => true
 ```
 
-By default, temperatures are in fahrenheit, but you can change this to `:celsius` or `:kelvin`.
+By default, temperatures are in `:fahrenheit`, but you can change this to `:celsius` or `:kelvin`:
 ```ruby
-@nest = NestThermostat::Nest.new(..., temperature_scale: :celsius)
+nest = NestThermostat::Nest.new(..., temperature_scale: :celsius)
 
 # -- OR --
 
-@nest.temperature_scale = :kelvin
+nest.temperature_scale = :kelvin
 ```
 
-And of course if you want to get LOTS of other goodies like (schedule and every diag piece of info you'd ever want):
+And of course if you want to get *lots* of other goodies, like scheduling and every diag piece of info you'd ever want:
 ```ruby
-p @nest.status
+p nest.status
 
 # -- OR --
 
 require 'yaml'
-yaml @nest.status
+yaml nest.status
 
 # -- OR my favorite --
 
 require 'ap' # gem install awesome_print
-ap @nest.status
+ap nest.status
 ```
-Feel free to implement anything you see useful and submit a pull
-request. I'd love to see other information like scheduling or multiple
-device/location support added.
+Feel free to implement anything you see useful and submit a pull request. I'd love to see other information like scheduling or multiple device/location support added.
 
 
 ## Alfred Extension
 
-If you use Alfred.app for OS X you may be interested in an extension.
-[Download it](http://erc.bz/HtOe). You'll need ruby 1.9+ and this gem
-installed. Then just enter your nest email/pass as the arguments in the
-alfred extension (after you import it).
-
-![Screenshot of Alfred Extension](http://erc.bz/H9Hm/Image%202012.06.05%202:18:56%20PM.png) ![Screenshot of Alfred Extension Growl Output](http://erc.bz/H97m/Image%202012.06.05%202:34:49%20PM.png)
-
+If you use Alfred.app for OS X you may be interested in an extension. [Download it](http://erc.bz/HtOe). You'll need Ruby 1.9+ and this gem installed. Then just enter your nest email/pass as the arguments in the alfred extension (after you import it).
 
 Here are the commands it supports:
 ```
@@ -102,6 +95,7 @@ nest home | back
 nest leaf | green
 nest until | til | time
 ```
+
 
 ## Contributing
 
