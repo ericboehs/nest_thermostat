@@ -55,7 +55,7 @@ module NestThermostat
       status["track"][self.device_id]["last_ip"].strip
     end
 
-    def leaf
+    def leaf?
       status["device"][self.device_id]["leaf"]
     end
 
@@ -90,7 +90,7 @@ module NestThermostat
     end
     alias_method :target_temp_at, :target_temperature_at
 
-    def away
+    def away?
       status["structure"][structure_id]["away"]
     end
 
@@ -121,6 +121,16 @@ module NestThermostat
         body: %Q({"fan_mode":"#{state}"}),
         headers: self.headers
       ) rescue nil
+    end
+
+    def method_missing(name, *args, &block)
+      if %i[away leaf].include?(name)
+        warn "`#{name}' has been replaced with `#{name}?'. Support for " +
+             "`#{name}' without the '?' will be dropped in future versions."
+        return self.send("#{name}?", *args)
+      end
+
+      super
     end
 
     private
