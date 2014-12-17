@@ -40,9 +40,15 @@ puts nest.temperature # => 73.0
 puts nest.temperature = 74.0
 puts nest.temperature # => 74.0
 
+<<<<<<< HEAD
 puts nest.away # => false
 puts nest.away = true
 puts nest.away # => true
+=======
+puts @nest.away? # => false
+puts @nest.away = true
+puts @nest.away? # => true
+>>>>>>> master
 ```
 
 By default, temperatures are in `:fahrenheit`, but you can change this to `:celsius` or `:kelvin`:

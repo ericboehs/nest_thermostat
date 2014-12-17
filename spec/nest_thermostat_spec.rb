@@ -32,18 +32,18 @@ module NestThermostat
     end
 
     it "gets the leaf status" do
-      expect(@nest.leaf).to_not be_nil
+      expect(@nest.leaf?).to_not be_nil
     end
 
     it "gets away status" do
-      expect(@nest.away).to_not be_nil
+      expect(@nest.away?).to_not be_nil
     end
 
     it "sets away status" do
       @nest.away = true
-      expect(@nest.away).to be(true)
+      expect(@nest.away?).to be(true)
       @nest.away = false
-      expect(@nest.away).to be(false)
+      expect(@nest.away?).to be(false)
     end
 
     it "gets the current temperature" do
