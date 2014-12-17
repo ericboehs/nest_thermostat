@@ -1,12 +1,4 @@
-require 'dotenv'
-require 'pry'
-require 'nest_thermostat'
-
-Dotenv.load
-RSpec.configure do |c|
-    c.filter_run focus: true
-    c.run_all_when_everything_filtered = true
-end
+require 'spec_helper'
 
 describe NestThermostat::Nest do
   before(:all) do
