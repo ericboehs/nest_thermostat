@@ -2,11 +2,10 @@ require 'rubygems'
 require 'httparty'
 require 'json'
 require 'uri'
-require 'awesome_print'
 
 module NestThermostat
   class Nest
-    attr_accessor :email, :password, :login_url, :user_agent, :auth,
+    attr_accessor :login_url, :user_agent, :auth,
       :temperature_scale, :login, :token, :user_id, :transport_url,
       :transport_host, :structure_id, :device_id, :headers
 
@@ -15,19 +14,18 @@ module NestThermostat
       raise 'Please specify your nest password' unless config[:password]
 
       # User specified information
-      self.email             = config[:email]
-      self.password          = config[:password]
-      self.temperature_scale = config[:temperature_scale] || config[:temp_scale] || 'f'
-      self.login_url         = config[:login_url] || 'https://home.nest.com/user/login'
-      self.user_agent        = config[:user_agent] ||'Nest/1.1.0.10 CFNetwork/548.0.4'
+      @temperature_scale = config[:temperature_scale] || config[:temp_scale] || 'f'
+      @login_url         = config[:login_url] || 'https://home.nest.com/user/login'
+      @user_agent        = config[:user_agent] ||'Nest/1.1.0.10 CFNetwork/548.0.4'
 
       # Login and get token, user_id and URLs
-      perform_login
-      self.token          = @auth["access_token"]
-      self.user_id        = @auth["userid"]
-      self.transport_url  = @auth["urls"]["transport_url"]
-      self.transport_host = URI.parse(self.transport_url).host
-      self.headers = {
+      perform_login(config[:email], config[:password])
+
+      @token          = @auth["access_token"]
+      @user_id        = @auth["userid"]
+      @transport_url  = @auth["urls"]["transport_url"]
+      @transport_host = URI.parse(@transport_url).host
+      @headers = {
         'Host'                  => self.transport_host,
         'User-Agent'            => self.user_agent,
         'Authorization'         => 'Basic ' + self.token,
@@ -108,7 +106,7 @@ module NestThermostat
     end
 
     def fan_mode
-      status["device"][self.device_id]["fan_mode"]
+      status["device"][device_id]["fan_mode"]
     end
 
     def fan_mode=(state)
@@ -120,15 +118,16 @@ module NestThermostat
     end
 
     private
-    def perform_login
+
+    def perform_login(email, password)
       login_request = HTTParty.post(
                         self.login_url,
-                        body:    { username: self.email, password: self.password },
+                        body:    { username: email, password: password },
                         headers: { 'User-Agent' => self.user_agent }
                       )
 
-      self.auth ||= JSON.parse(login_request.body) rescue nil
-      raise 'Invalid login credentials' if self.auth.has_key?('error') && self.auth['error'] == "access_denied"
+      @auth ||= JSON.parse(login_request.body) rescue nil
+      raise 'Invalid login credentials' if auth.has_key?('error') && @auth['error'] == "access_denied"
     end
 
     def convert_temp_for_get(degrees)
