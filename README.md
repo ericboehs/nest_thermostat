@@ -28,8 +28,8 @@ puts @nest.temperature           # => 73.00
 puts @nest.temp                  # => 73.00
 puts @nest.target_temperature_at # => 2012-06-05 14:28:48 +0000 # Ruby date object or false
 puts @nest.target_temp_at        # => 2012-06-05 14:28:48 +0000 # Ruby date object or false
-puts @nest.away                  # => false
-puts @nest.leaf                  # => true # May take a few seconds after a temp change
+puts @nest.away?                 # => false
+puts @nest.leaf?                 # => true # May take a few seconds after a temp change
 puts @nest.humidity              # => 54 # Relative humidity in percent
 ```
 
@@ -39,9 +39,9 @@ puts @nest.temperature # => 73.0
 puts @nest.temperature = 74.0
 puts @nest.temperature # => 74.0
 
-puts @nest.away # => false
+puts @nest.away? # => false
 puts @nest.away = true
-puts @nest.away # => true
+puts @nest.away? # => true
 ```
 
 By default, temperatures are in fahrenheit, but you can change this to `:celsius` or `:kelvin`.
