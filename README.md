@@ -29,6 +29,10 @@ puts nest.current_temperature   # => 75.00
 puts nest.current_temp          # => 75.00
 puts nest.temperature           # => 73.00
 puts nest.temp                  # => 73.00
+puts nest.temp_high             # => 77.00
+puts nest.temp_low              # => 71.00
+puts nest.temperature_high      # => 77.00
+puts nest.temperature_low       # => 71.00
 puts nest.target_temperature_at # => 2012-06-05 14:28:48 +0000 # Ruby date object or false
 puts nest.target_temp_at        # => 2012-06-05 14:28:48 +0000 # Ruby date object or false
 puts nest.away                  # => false
@@ -41,6 +45,14 @@ Change the temperature or away status:
 puts nest.temperature # => 73.0
 puts nest.temperature = 74.0
 puts nest.temperature # => 74.0
+
+puts nest.temperature_high # => 75.0
+puts nest.temperature_high = 74.0
+puts nest.temperature_high # => 74.0
+
+puts nest.temperature_low # => 65.0
+puts nest.temperature_low = 67.0
+puts nest.temperature_low # => 67.0
 
 puts nest.away? # => false
 puts nest.away = true
