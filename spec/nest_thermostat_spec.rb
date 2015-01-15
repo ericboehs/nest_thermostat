@@ -60,12 +60,38 @@ module NestThermostat
       expect(@nest.temp).to be_a_kind_of(Numeric)
     end
 
+    it "gets the low temperature" do
+      expect(@nest.temperature_low).to be_a_kind_of(Numeric)
+      expect(@nest.temp_low).to be_a_kind_of(Numeric)
+    end
+
+    it "gets the high temperature" do
+      expect(@nest.temperature_high).to be_a_kind_of(Numeric)
+      expect(@nest.temp_high).to be_a_kind_of(Numeric)
+    end
+
     it "sets the temperature" do
       @nest.temp = '74'
       expect(@nest.temp.round).to eq(74)
 
       @nest.temperature = '73'
       expect(@nest.temperature).to eq(73)
+    end
+
+    it "sets the low temperature" do
+      @nest.temp_low = '73'
+      expect(@nest.temp_low.round).to eq(73)
+
+      @nest.temperature_low = '74'
+      expect(@nest.temperature_low.round).to eq(74)
+    end
+
+    it "sets the high temperature" do
+      @nest.temp_high = '73'
+      expect(@nest.temp_high.round).to eq(73)
+
+      @nest.temperature_high = '74'
+      expect(@nest.temperature_high.round).to eq(74)
     end
 
     it "sets the temperature in celsius" do

@@ -73,6 +73,16 @@ module NestThermostat
     end
     alias_method :temp, :temperature
 
+    def temperature_low
+      convert_temp_for_get(status["shared"][self.device_id]["target_temperature_low"])
+    end
+    alias_method :temp_low, :temperature_low
+
+    def temperature_high
+      convert_temp_for_get(status["shared"][self.device_id]["target_temperature_high"])
+    end
+    alias_method :temp_high, :temperature_high
+
     def temperature=(degrees)
       degrees = convert_temp_for_set(degrees)
 
@@ -83,6 +93,28 @@ module NestThermostat
       ) rescue nil
     end
     alias_method :temp=, :temperature=
+
+    def temperature_low=(degrees)
+      degrees = convert_temp_for_set(degrees)
+
+      request = HTTParty.post(
+          "#{self.transport_url}/v2/put/shared.#{self.device_id}",
+          body: %Q({"target_change_pending":true,"target_temperature_low":#{degrees}}),
+          headers: self.headers
+      ) rescue nil
+    end
+    alias_method :temp_low=, :temperature_low=
+
+    def temperature_high=(degrees)
+      degrees = convert_temp_for_set(degrees)
+
+      request = HTTParty.post(
+          "#{self.transport_url}/v2/put/shared.#{self.device_id}",
+          body: %Q({"target_change_pending":true,"target_temperature_high":#{degrees}}),
+          headers: self.headers
+      ) rescue nil
+    end
+    alias_method :temp_high=, :temperature_high=
 
     def target_temperature_at
       epoch = status["device"][self.device_id]["time_to_target"]
