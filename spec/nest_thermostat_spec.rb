@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 module NestThermostat
-  describe Nest do
+  # Run all the requests through VCR, but don't match on the host or URI as they vary
+  # match on all the other parts of the request to find the unique request in the cassette
+  describe Nest, :vcr => { :match_requests_on => [:method, :path, :query, :body]} do
     before(:all) do
       @nest = Nest.new(email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS'], temperature_scale: :fahrenheit)
     end
@@ -18,7 +20,6 @@ module NestThermostat
 
     it "does not remember the login email or password" do
       nest = Nest.new(email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS'], temperature_scale: :fahrenheit)
-
       expect(nest).not_to respond_to(:email)
       expect(nest).not_to respond_to(:password)
     end
@@ -30,6 +31,10 @@ module NestThermostat
     it "gets the pubic ip address" do
       expect(@nest.public_ip).to match(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?$/)
     end
+
+    # it "doesn't fail if there are no devices" do
+    #   expect { @nest.current_temperature }.to not_raise
+    # end
 
     it "gets the leaf status" do
       expect(@nest.leaf?).to_not be_nil
