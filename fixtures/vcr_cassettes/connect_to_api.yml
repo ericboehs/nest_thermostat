@@ -1,6 +1,39 @@
 ---
 http_interactions:
 - request:
+    method: post
+    uri: https://home.nest.com/user/login
+    body:
+      encoding: UTF-8
+      string: username=msmith46234%40yahoo.com&password=Tuathadea1!
+    headers:
+      user-agent:
+      - Nest/1.1.0.10 CFNetwork/548.0.4
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json
+      date:
+      - Mon, 26 Oct 2015 21:08:30 GMT
+      server:
+      - nginx/1.4.4
+      set-cookie:
+      - cztoken=b.2423243.hoDmRFealPFVHX4kK43bwKlwwEeE4GJPXwq3XnkCGFf8ThHmBiFrNCTgu3tM0htBQroAjsvq3F9yoYu7Dx4ll3gSHrHyLUeW6Cp74PVcKssMs6EL0QBUWXB9Q7UDJN7UxV4tPdIMHJJhRsCb;
+        Expires=Wed, 25 Nov 2015 21:08:29 GMT; Secure
+      content-length:
+      - '2197'
+      connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"user":"user.2423243","access_token":"b.2423243.hoDmRFealPFVHX4kK43bwKlwwEeE4GJPXwq3XnkCGFf8ThHmBiFrNCTgu3tM0htBQroAjsvq3F9yoYu7Dx4ll3gSHrHyLUeW6Cp74PVcKssMs6EL0QBUWXB9Q7UDJN7UxV4tPdIMHJJhRsCb","expires_in":"Wed,
+        25-Nov-2015 21:08:29 GMT","language":"en_US","email":"msmith46234@yahoo.com","is_superuser":false,"is_staff":false,"urls":{"transport_url":"https://czfe71-front01-iad01.transport.home.nest.com","czfe_url":"https://czfe71-front01-iad01.transport.home.nest.com","direct_transport_url":"https://transport01-rts09-iad01.transport.home.nest.com:443","rubyapi_url":"https://home.nest.com/","weather_url":"https://apps-weather.nest.com/weather/v1?query=","log_upload_url":"https://log-rts09-iad01.home.nest.com/upload/user","support_url":"https://nest.secure.force.com/support/webapp?"},"limits":{"thermostats_per_structure":20,"structures":2,"thermostats":40,"smoke_detectors":36,"smoke_detectors_per_structure":18},"weave":{"service_config":"1QAADwABADYBFTABCEdYfNbKQ+Z8JAIENwMnEwEAAADuMLQYGCYERUgWGiYFRQb7STcGJxMBAAAA7jC0GBgkBwImCCUAWiMwCjkEFJtArVoBj0T+fpKZeV1TBT0osdlSUx1FRK1ZTcslNfDQSMUwiG3iH5tQjeGhrxbfr0kphGthRBA1gykBKQIYNYIpASQCYBg1gTACCEM09xLfX5HPGDWAMAIIQzT3Et9fkc8YNQwwAR0AlvB51cbUag/T//0P7EqwJNQATpT0hWNT7odJgzACHQCPTm4jL9hwiKnIKvpqXtz6LnCd0ifQrU9apo0jGBgVMAEIXYkodEr1AdAkAgQ3AywBBzI0MjMyNDMYJgSUcSIeJgWUGkgxNwYsAQcyNDIzMjQzGCQHAiYIJQBaIzAKOQRiIZeDbWdzrS9L/8BCP231hinNbMIB5VWsBP8zjc4U9PxFkrC2Nom9hfEnUYIx/SjsaJJp5yPuODWDKQEYNYIpASQCBRg1hCkBNgIEAgQBGBg1gTACCE5l7/ee7NldGDWAMAIITmXv957s2V0YNQwwARwOJoELt7iynQNB/aGh9JoQL/gzTFzUI7Am0xYeMAIdAIt0EwEUhHkegDzo172nvW2fQy5qMtUUA3RK5TAYGBg1AicBAQAAAAIwtBg2AhUsARJmcm9udGRvb3IubmVzdC5jb20lAlcrGBgYGA==","pairing_token":"wu.GUYKq74dW65C3up1qhJYj35hwZw8+CfJeJqT0/uic6Bpe9D3C1AHV2WZ3nQ0u1f/+mzfgGmAwStDdZ8uqnoy4FY4iQ8=","access_token":"lQkANQEwAQhdiSh0SvUB0CQCBDcDLAEHMjQyMzI0MxgmBJRxIh4mBZQaSDE3BiwBBzI0MjMyNDMYJAcCJgglAFojMAo5BGIhl4NtZ3OtL0v/wEI/bfWGKc1swgHlVawE/zONzhT0/EWSsLY2ib2F8SdRgjH9KOxokmnnI+44NYMpARg1gikBJAIFGDWEKQE2AgQCBAEYGDWBMAIITmXv957s2V0YNYAwAghOZe/3nuzZXRg1DDABHA4mgQu3uLKdA0H9oaH0mhAv+DNMXNQjsCbTFh4wAh0Ai3QTARSEeR6APOjXvae9bZ9DLmoy1RQDdErlMBgYNQImASUAWiMwAhxnzkTnVXVu258FYcj1SssE/s4zKq9t+kBSvHPlGBg="},"userid":"2423243"}'
+    http_version: '1.1'
+  recorded_at: Mon, 26 Oct 2015 21:08:30 GMT
+- request:
     method: get
     uri: https://on6%DFn7%86%80%E6DW%9A%94%F1U%1D~$+%8D%DB%C0%A9p%C0G%84%E0bO_%0A%B7%5Ey%02%18W%FCN%11%E6%06!k4$%E0%BB%7BL%D2%1BAB%BA%00%8E%CB%EA%DC_r%A1%8B%BB%0F%1E%25%97x%12%1E%B1%F2-G%96%E8*%7B%E0%F5%5C*%CB%0C%B3%A1%0B%D1%00TYp%7DC%B5%03$%DE%D4%C5%5E-=%D2%0C%1C%92aF%C0%9B@czfe71-front01-iad01.transport.home.nest.com/v2/mobile/user.2423243
     body:
@@ -33,7 +66,7 @@ http_interactions:
       x-nl-defer-device-window:
       - '120'
       x-nl-service-timestamp:
-      - '1445893712914'
+      - '1445893710990'
       content-length:
       - '10878'
       connection:
@@ -50,5 +83,5 @@ http_interactions:
         ready","device_locale":"en_US","temperature_scale":"F","battery_level":3.963,"error_code":"","maint_band_upper":0.39,"preconditioning_active":false,"fan_control_state":false,"away_temperature_high_enabled":false,"dehumidifier_fan_activation":false,"learning_days_completed_heat":598,"humidifier_fan_activation":false,"pin_star_description":"none","upper_safety_temp_enabled":false,"dual_fuel_selected":false,"preconditioning_enabled":false,"current_humidity":50,"dual_fuel_breakpoint":-1,"postal_code":"94602","backplate_mono_version":"4.0.20","alt_heat_source":"gas","aux_lockout_leaf":10,"has_heat_pump":false,"heater_delivery":"forced-air","away_temperature_low":12.778,"auto_away_reset":false,"radiant_control_enabled":false,"has_air_filter":true,"temperature_lock":false,"dehumidifier_type":"unknown","time_to_target_training":"training","upper_safety_temp":35,"humidity_control_lockout_enabled":false,"fan_timer_duration":900,"target_time_confidence":0,"pin_w1_description":"heat","temperature_lock_low_temp":20,"where_id":"00000000-0000-0000-0000-000100000001","forced_air":true,"temperature_lock_pin_hash":"","auto_dehum_enabled":false,"leaf_type":1,"backplate_mono_info":"TFE
         (BP_D2) 4.0.20 (root@bamboo) 2014-02-03 10:06:33","has_dual_fuel":false,"star_type":"unknown","learning_time":1703,"maint_band_lower":0.39,"creation_time":1420654958512,"has_humidifier":false,"learning_days_completed_range":0,"dehumidifier_orientation_selected":"unknown","leaf_schedule_delta":1.11,"logging_priority":"informational","user_brightness":"medium","leaf_away_low":16.835,"pin_rc_description":"none","auto_dehum_state":false,"serial_number":"80C4887E69DF00D9","heat_x2_source":"electric","mac_address":"18b430093686","fan_duty_start_time":50400,"time_to_target":0,"backplate_model":"Backplate-2.2","heat_link_connection":0,"model_version":"Display-2.1","heat_pump_aux_threshold_enabled":true,"ob_persistence":true,"schedules":[]}},"trip":{"0b47dcf0-7c13-11e5-8199-22000b420f99":{"$version":32201,"$timestamp":1445885694252,"trips":[]}},"demand_response":{"fake3243A0F6BA0D":{"$version":-1,"$timestamp":1}},"user":{"2423243":{"$version":9049,"$timestamp":1445885721137,"email":"msmith46234@yahoo.com","name":"msmith46234@yahoo.com","structures":["structure.0b47dcf0-7c13-11e5-8199-22000b420f99"],"structure_memberships":[{"structure":"structure.0b47dcf0-7c13-11e5-8199-22000b420f99","roles":["owner"]}]}},"link":{"fake3243A0F6BA0D":{"$version":11636,"$timestamp":1445886154347,"structure":"structure.0b47dcf0-7c13-11e5-8199-22000b420f99"}},"device_alert_dialog":{"fake3243A0F6BA0D":{"$version":31818,"$timestamp":1445886154347,"dialog_data":"","dialog_id":"confirm-pairing"}},"geofence_info":{"0b47dcf0-7c13-11e5-8199-22000b420f99":{"$version":-31412,"$timestamp":1445885694252,"device_events":[],"fences":[]}},"metadata":{"fake3243A0F6BA0D":{"$version":-1,"$timestamp":1356998400000,"last_ip":"127.0.0.1","last_connection":1356998400000}},"user_settings":{"2423243":{"$version":31691,"$timestamp":1445354998080,"email_verified":true,"tos_accepted_version":1434564000000,"receive_marketing_emails":true,"receive_nest_emails":true,"receive_support_emails":true,"max_structures":2,"max_thermostats":40,"max_thermostats_per_structure":20,"max_smoke_detectors_per_structure":18,"max_smoke_detectors":36,"max_wwn_devices_per_structure":10,"max_wwn_devices":20,"tos_minimum_version":1434564000000,"tos_current_version":1434564000000,"lang":"en_US"}},"schedule":{"fake3243A0F6BA0D":{"$version":-27802,"$timestamp":1445886153905}},"structure_metadata":{"0b47dcf0-7c13-11e5-8199-22000b420f99":{"$version":18914,"$timestamp":1445885858794,"entitlements_api_path":"/api/0.1/structure/0b47dcf0-7c13-11e5-8199-22000b420f99/entitlements?v=0c32c1e8-534d-4d7d-a678-3db20c33bb61"}},"shared":{"fake3243A0F6BA0D":{"$version":26201,"$timestamp":1445886232781,"auto_away_learning":"ready","auto_away":0,"hvac_alt_heat_state":false,"compressor_lockout_enabled":false,"hvac_heat_x3_state":false,"target_temperature_type":"heat","hvac_heater_state":false,"can_heat":true,"hvac_emer_heat_state":false,"compressor_lockout_timeout":0,"hvac_cool_x2_state":false,"target_temperature_high":26,"hvac_aux_heater_state":false,"hvac_heat_x2_state":false,"target_temperature_low":19,"target_temperature":22.85,"hvac_ac_state":false,"hvac_fan_state":false,"target_change_pending":true,"name":"BA0D","current_temperature":21,"hvac_alt_heat_x2_state":false,"can_cool":true}},"safety_summary":{"0b47dcf0-7c13-11e5-8199-22000b420f99":{"$version":-21456,"$timestamp":1445885694252}}}'
     http_version: '1.1'
-  recorded_at: Mon, 26 Oct 2015 21:08:32 GMT
+  recorded_at: Mon, 26 Oct 2015 21:08:30 GMT
 recorded_with: VCR 2.9.3
