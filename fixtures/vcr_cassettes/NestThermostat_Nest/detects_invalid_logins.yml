@@ -17,18 +17,18 @@ http_interactions:
       content-type:
       - application/json
       date:
-      - Mon, 26 Oct 2015 21:10:03 GMT
+      - Tue, 27 Oct 2015 14:34:17 GMT
       server:
       - nginx/1.4.4
       set-cookie:
-      - cztoken=; Expires=Mon, 26 Oct 2015 21:10:03 GMT
+      - cztoken=; Expires=Tue, 27 Oct 2015 14:34:17 GMT
       content-length:
       - '125'
       connection:
       - Close
     body:
       encoding: UTF-8
-      string: '{"error":"access_denied","error_description":"invalid user credentials","instance_id":"9a22c642-53c9-4ed9-b4d2-b53cddd614cf"}'
+      string: '{"error":"access_denied","error_description":"invalid user credentials","instance_id":"429fba9b-c82f-48a9-af2b-9cb219cffc55"}'
     http_version: '1.1'
-  recorded_at: Mon, 26 Oct 2015 21:10:03 GMT
+  recorded_at: Tue, 27 Oct 2015 14:34:17 GMT
 recorded_with: VCR 2.9.3
