@@ -3,7 +3,8 @@ require 'dotenv'
 require 'pry'
 require "fakeweb"
 require 'vcr'
-
+require 'timecop'
+require 'awesome_print'
 
 Dotenv.load
 

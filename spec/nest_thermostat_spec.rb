@@ -5,7 +5,9 @@ module NestThermostat
   # match on all the other parts of the request to find the unique request in the cassette
   describe Nest, :vcr => { :match_requests_on => [:method, :path, :query, :body]} do
     before(:all) do
-      @nest = Nest.new(email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS'], temperature_scale: :fahrenheit)
+      VCR.use_cassette("connect to api") do
+        @nest = Nest.new(email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS'], temperature_scale: :fahrenheit)
+      end
     end
 
     it "logs in to home.nest.com" do
@@ -19,9 +21,9 @@ module NestThermostat
     end
 
     it "does not remember the login email or password" do
-      nest = Nest.new(email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS'], temperature_scale: :fahrenheit)
-      expect(nest).not_to respond_to(:email)
-      expect(nest).not_to respond_to(:password)
+      @nest = Nest.new(email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS'], temperature_scale: :fahrenheit)
+      expect(@nest).not_to respond_to(:email)
+      expect(@nest).not_to respond_to(:password)
     end
 
     it "gets the status" do
@@ -32,9 +34,10 @@ module NestThermostat
       expect(@nest.public_ip).to match(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?$/)
     end
 
-    # it "doesn't fail if there are no devices" do
-    #   expect { @nest.current_temperature }.to not_raise
-    # end
+    it "doesn't fail if there are no thermostats" do
+      # NOTE: To generate the VCR cassette for this test, we removed all of the devices and captured the API results
+      expect { @nest.current_temperature }.not_to raise_error
+    end
 
     it "gets the leaf status" do
       expect(@nest.leaf?).to_not be_nil
@@ -45,10 +48,13 @@ module NestThermostat
     end
 
     it "sets away status" do
-      @nest.away = true
+      # Freeze time so we always use the same time (makes VCR happy)
+      Timecop.freeze(Time.local(2015, 10, 27, 10, 5, 0))
+      @nest.away= true
       expect(@nest.away?).to be(true)
       @nest.away = false
       expect(@nest.away?).to be(false)
+      Timecop.return
     end
 
     it "gets the current temperature" do
@@ -95,19 +101,19 @@ module NestThermostat
       @nest.temp_high = '73'
       expect(@nest.temp_high.round).to eq(73)
 
-      @nest.temperature_high = '74'
+      @nest.temperature_high = 74
       expect(@nest.temperature_high.round).to eq(74)
     end
 
     it "sets the temperature in celsius" do
       @nest.temperature_scale = :celsius
-      @nest.temperature = '22'
+      @nest.temperature = 22
       expect(@nest.temperature).to eq(22.0)
     end
 
     it "sets the temperature in kelvin" do
       @nest.temp_scale = :kelvin
-      @nest.temperature = '296'
+      @nest.temperature = 296
       expect(@nest.temperature).to eq(296.0)
     end
 
