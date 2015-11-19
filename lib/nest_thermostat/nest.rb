@@ -148,12 +148,11 @@ module NestThermostat
     end
 
     def method_missing(name, *args, &block)
-      if %i[away leaf].include?(name)
-        warn "`#{name}" has been replaced with `#{name}?". Support for " +
-        "`#{name}" without the "?" will be dropped in future versions."
-        return self.send("#{name}?", *args)
-      end
-
+        if %i[away leaf].include?(name)
+           warn "`#{name}' has been replaced with `#{name}?'. Support for " +
+                "`#{name}' without the '?' will be dropped in future versions."
+           return self.send("#{name}?", *args)
+        end
       super
     end
 

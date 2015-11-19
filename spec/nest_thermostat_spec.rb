@@ -34,7 +34,7 @@ module NestThermostat
       expect(@nest.public_ip).to match(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?$/)
     end
 
-    it "doesn"t fail if there are no thermostats" do
+    it "doesn't fail if there are no thermostats" do
       # NOTE: To generate the VCR cassette for this test, we removed all of the devices and captured the API results
       expect { @nest.current_temperature }.not_to raise_error
     end

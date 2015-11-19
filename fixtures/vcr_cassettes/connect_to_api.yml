@@ -20,7 +20,7 @@ http_interactions:
       - Tue, 27 Oct 2015 14:34:16 GMT
       server:
       - nginx/1.4.4
-    :set-cookie:
+      set-cookie:
       - cztoken=b.2423243.ZKygtTfU92o5WkRbE2cSrqo3fv0rZ3d0TxKp2spgJkVht9xwBRhzwibd9MI72UJ3CSVJO7zVeNk6Vuk5KnJDuTI7NGNWXefh3MeysBZPlFpZtiCUWBcD7R6RzAl0TlMoyfIg6f5ZAVw8ZqTk;
         Expires=Thu, 26 Nov 2015 14:34:15 GMT; Secure
       content-length:
