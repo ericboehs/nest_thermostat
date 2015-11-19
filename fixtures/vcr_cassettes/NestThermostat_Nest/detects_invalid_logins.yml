@@ -1,0 +1,34 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://home.nest.com/user/login
+    body:
+      encoding: UTF-8
+      string: username=invalid%40example.com&password=asdf
+    headers:
+      user-agent:
+      - Nest/1.1.0.10 CFNetwork/548.0.4
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      content-type:
+      - application/json
+      date:
+      - Tue, 27 Oct 2015 14:34:17 GMT
+      server:
+      - nginx/1.4.4
+      set-cookie:
+      - cztoken=; Expires=Tue, 27 Oct 2015 14:34:17 GMT
+      content-length:
+      - '125'
+      connection:
+      - Close
+    body:
+      encoding: UTF-8
+      string: '{"error":"access_denied","error_description":"invalid user credentials","instance_id":"429fba9b-c82f-48a9-af2b-9cb219cffc55"}'
+    http_version: '1.1'
+  recorded_at: Tue, 27 Oct 2015 14:34:17 GMT
+recorded_with: VCR 2.9.3

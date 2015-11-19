@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://on6%DFn7d%AC%A0%B57%D4%F7j9ZD%5B%13g%12%AE%AA7~%FD+gwtO%12%A9%DA%CA%60&Ea%B7%DCp%05%18s%C2&%DD%F4%C2;%D9Bw%09%25I;%BC%D5x%D9:V%E99*rC%B92;4cV%5D%E7%E1%DC%C7%B2%B0%16O%94ZY%B6%20%94X%17%03%ED%1E%91%CC%09tNS(%C9%F2%20%E9%FEY%01%5C%3Cf%A4%E4@czfe09-front01-iad01.transport.home.nest.com/v2/mobile/user.2423243
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      host:
+      - czfe09-front01-iad01.transport.home.nest.com
+      user-agent:
+      - Nest/1.1.0.10 CFNetwork/548.0.4
+      authorization:
+      - Basic b.2423243.ZKygtTfU92o5WkRbE2cSrqo3fv0rZ3d0TxKp2spgJkVht9xwBRhzwibd9MI72UJ3CSVJO7zVeNk6Vuk5KnJDuTI7NGNWXefh3MeysBZPlFpZtiCUWBcD7R6RzAl0TlMoyfIg6f5ZAVw8ZqTk
+      x-nl-user-id:
+      - '2423243'
+      x-nl-protocol-version:
+      - '1'
+      accept-language:
+      - en-us
+      connection:
+      - keep-alive
+      accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json
+      x-nl-defer-device-window:
+      - '120'
+      x-nl-service-timestamp:
+      - '1445956565096'
+      content-length:
+      - '4032'
+      connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"buckets":{"2423243":{"$version":-32194,"$timestamp":1445956557750,"buckets":["user.2423243","user_alert_dialog.2423243","message_center.2423243","user_settings.2423243","buckets.2423243","structure.0b47dcf0-7c13-11e5-8199-22000b420f99","where.0b47dcf0-7c13-11e5-8199-22000b420f99","utility.0b47dcf0-7c13-11e5-8199-22000b420f99","structure_history.0b47dcf0-7c13-11e5-8199-22000b420f99","trip.0b47dcf0-7c13-11e5-8199-22000b420f99","structure_metadata.0b47dcf0-7c13-11e5-8199-22000b420f99","safety.0b47dcf0-7c13-11e5-8199-22000b420f99","safety_summary.0b47dcf0-7c13-11e5-8199-22000b420f99","geofence_info.0b47dcf0-7c13-11e5-8199-22000b420f99"]}},"user_alert_dialog":{"2423243":{"$version":-31019,"$timestamp":1445954076171,"dialog_data":"","dialog_id":"confirm-pairing"}},"message_center":{"2423243":{"$version":-1,"$timestamp":1325379661000,"messages":[]}},"safety":{"0b47dcf0-7c13-11e5-8199-22000b420f99":{"$version":3651,"$timestamp":1445885694252,"audio_self_test_participants":[]}},"utility":{"0b47dcf0-7c13-11e5-8199-22000b420f99":{"$version":-1,"$timestamp":1}},"where":{"0b47dcf0-7c13-11e5-8199-22000b420f99":{"$version":25319,"$timestamp":1445885694015,"wheres":[{"where_id":"00000000-0000-0000-0000-000100000001","name":"Basement"},{"where_id":"00000000-0000-0000-0000-00010000000d","name":"Bedroom"},{"where_id":"00000000-0000-0000-0000-000100000003","name":"Den"},{"where_id":"00000000-0000-0000-0000-000100000010","name":"Dining
+        Room"},{"where_id":"00000000-0000-0000-0000-000100000006","name":"Downstairs"},{"where_id":"00000000-0000-0000-0000-000100000000","name":"Entryway"},{"where_id":"00000000-0000-0000-0000-00010000000b","name":"Family
+        Room"},{"where_id":"00000000-0000-0000-0000-000100000002","name":"Hallway"},{"where_id":"00000000-0000-0000-0000-000100000008","name":"Kids
+        Room"},{"where_id":"00000000-0000-0000-0000-00010000000a","name":"Kitchen"},{"where_id":"00000000-0000-0000-0000-00010000000c","name":"Living
+        Room"},{"where_id":"00000000-0000-0000-0000-000100000005","name":"Master Bedroom"},{"where_id":"00000000-0000-0000-0000-00010000000e","name":"Office"},{"where_id":"00000000-0000-0000-0000-00010000000f","name":"Upstairs"}]}},"structure":{"0b47dcf0-7c13-11e5-8199-22000b420f99":{"$version":-27268,"$timestamp":1445956557452,"away":false,"away_setter":0,"away_timestamp":1445954700,"country_code":"US","creation_time":1445885694067,"location":"Palm
+        Harbor, FL","name":"Chrome App Structure","postal_code":"34683","topaz_away":false,"topaz_hush_key":"FmyQftpkdU9eH9St4mMWhQ==","user":"user.2423243","devices":[],"swarm":[],"fabric_ids":[],"clutches":[],"members":[{"user":"user.2423243","roles":["owner"]}]}},"trip":{"0b47dcf0-7c13-11e5-8199-22000b420f99":{"$version":32201,"$timestamp":1445885694252,"trips":[]}},"user":{"2423243":{"$version":9049,"$timestamp":1445885721137,"email":"test@yahoo.com","name":"test@yahoo.com","structures":["structure.0b47dcf0-7c13-11e5-8199-22000b420f99"],"structure_memberships":[{"structure":"structure.0b47dcf0-7c13-11e5-8199-22000b420f99","roles":["owner"]}]}},"geofence_info":{"0b47dcf0-7c13-11e5-8199-22000b420f99":{"$version":-31412,"$timestamp":1445885694252,"device_events":[],"fences":[]}},"user_settings":{"2423243":{"$version":31691,"$timestamp":1445354998080,"email_verified":true,"tos_accepted_version":1434564000000,"receive_marketing_emails":true,"receive_nest_emails":true,"receive_support_emails":true,"max_structures":2,"max_thermostats":40,"max_thermostats_per_structure":20,"max_smoke_detectors_per_structure":18,"max_smoke_detectors":36,"max_wwn_devices_per_structure":10,"max_wwn_devices":20,"tos_minimum_version":1434564000000,"tos_current_version":1434564000000,"lang":"en_US"}},"structure_metadata":{"0b47dcf0-7c13-11e5-8199-22000b420f99":{"$version":19380,"$timestamp":1445956557981,"entitlements_api_path":"/api/0.1/structure/0b47dcf0-7c13-11e5-8199-22000b420f99/entitlements?v=a6453a7c-f16e-4768-abb3-4dfb70139cfd"}},"safety_summary":{"0b47dcf0-7c13-11e5-8199-22000b420f99":{"$version":-21456,"$timestamp":1445885694252}}}'
+    http_version: '1.1'
+  recorded_at: Tue, 27 Oct 2015 14:36:05 GMT
+recorded_with: VCR 2.9.3
