@@ -6,7 +6,7 @@ module NestThermostat
   describe Nest, :vcr => { :match_requests_on => [:method, :path, :query, :body]} do
     before(:all) do
       VCR.use_cassette("connect to api") do
-        @nest = Nest.new(email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS'], temperature_scale: :fahrenheit)
+        @nest = Nest.new(email: 'test@yahoo.com' , password: 'sekret', temperature_scale: :fahrenheit)
       end
     end
 
@@ -21,7 +21,7 @@ module NestThermostat
     end
 
     it "does not remember the login email or password" do
-      @nest = Nest.new(email: ENV['NEST_EMAIL'], password: ENV['NEST_PASS'], temperature_scale: :fahrenheit)
+      @nest = Nest.new(email: 'test@yahoo.com', password: 'sekret', temperature_scale: :fahrenheit)
       expect(@nest).not_to respond_to(:email)
       expect(@nest).not_to respond_to(:password)
     end
