@@ -42,7 +42,7 @@ module NestThermostat
     end
 
     def status
-      request = HTTParty.get("#{self.transport_url}/v2/mobile/user.#{self.user_id}", headers: self.headers)
+      request = HTTParty.get("#{transport_url}/v2/mobile/user.#{user_id}", headers: headers)
       result = JSON.parse(request.body)
 
       structures = result["user"][user_id]["structures"]
@@ -151,7 +151,7 @@ module NestThermostat
         if %i[away leaf].include?(name)
            warn "`#{name}' has been replaced with `#{name}?'. Support for " +
                 "`#{name}' without the '?' will be dropped in future versions."
-           return self.send("#{name}?", *args)
+           return send("#{name}?", *args)
         end
       super
     end
@@ -160,9 +160,9 @@ module NestThermostat
 
     def perform_login(email, password)
       login_request = HTTParty.post(
-      self.login_url,
+      login_url,
       body:    { username: email, password: password },
-      headers: { "User-Agent" => self.user_agent }
+      headers: { "User-Agent" => user_agent }
       )
 
       @auth ||= JSON.parse(login_request.body)
@@ -202,19 +202,19 @@ module NestThermostat
     end
 
     def post_to_shared_api(body)
-      HTTParty.post("#{self.transport_url}/v2/put/shared.#{self.device_id}",
+      HTTParty.post("#{transport_url}/v2/put/shared.#{device_id}",
                     body: body.to_json,
                     headers: headers)
     end
 
     def post_to_device_api(body)
-      HTTParty.post("#{self.transport_url}/v2/put/device.#{self.device_id}",
+      HTTParty.post("#{transport_url}/v2/put/device.#{device_id}",
                     body: body.to_json,
                     headers: headers)
     end
 
     def post_to_structure_api(body)
-      HTTParty.post("#{self.transport_url}/v2/put/structure.#{structure_id}",
+      HTTParty.post("#{transport_url}/v2/put/structure.#{structure_id}",
                     body: body.to_json,
                     headers: headers)
     end
