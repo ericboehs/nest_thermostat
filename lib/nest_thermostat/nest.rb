@@ -1,7 +1,7 @@
-require 'rubygems'
-require 'httparty'
-require 'json'
-require 'uri'
+require "rubygems"
+require "httparty"
+require "json"
+require "uri"
 
 module NestThermostat
   class Nest
@@ -11,13 +11,13 @@ module NestThermostat
     attr_reader :temperature_scale
 
     def initialize(config = {})
-      raise 'Please specify your nest email'    unless config[:email]
-      raise 'Please specify your nest password' unless config[:password]
+      raise "Please specify your nest email"    unless config[:email]
+      raise "Please specify your nest password" unless config[:password]
 
       # User specified information
       self.temperature_scale = config[:temperature_scale] || config[:temp_scale] || :fahrenheit
-      @login_url  = config[:login_url] || 'https://home.nest.com/user/login'
-      @user_agent = config[:user_agent] ||'Nest/1.1.0.10 CFNetwork/548.0.4'
+      @login_url  = config[:login_url] || "https://home.nest.com/user/login"
+      @user_agent = config[:user_agent] ||"Nest/1.1.0.10 CFNetwork/548.0.4"
 
       # Login and get token, user_id and URLs
       perform_login(config[:email], config[:password])
@@ -27,14 +27,14 @@ module NestThermostat
       @transport_url  = @auth["urls"]["transport_url"]
       @transport_host = URI.parse(@transport_url).host
       @headers = {
-        'Host'                  => self.transport_host,
-        'User-Agent'            => self.user_agent,
-        'Authorization'         => 'Basic ' + self.token,
-        'X-nl-user-id'          => self.user_id,
-        'X-nl-protocol-version' => '1',
-        'Accept-Language'       => 'en-us',
-        'Connection'            => 'keep-alive',
-        'Accept'                => '*/*'
+        "Host"                  => self.transport_host,
+        "User-Agent"            => self.user_agent,
+        "Authorization"         => "Basic " + self.token,
+        "X-nl-user-id"          => self.user_id,
+        "X-nl-protocol-version" => "1",
+        "Accept-Language"       => "en-us",
+        "Connection"            => "keep-alive",
+        "Accept"                => "*/*"
       }
 
       # Set device and structure id
@@ -45,15 +45,15 @@ module NestThermostat
       request = HTTParty.get("#{self.transport_url}/v2/mobile/user.#{self.user_id}", headers: self.headers)
       result = JSON.parse(request.body)
 
-      structures = result['user'][user_id]['structures']
+      structures = result["user"][user_id]["structures"]
       if structures.any?
-        self.structure_id = structures.first.split('.')[1]
+        self.structure_id = structures.first.split(".")[1]
       end
 
       if self.structure_id
-        devices = result['structure'][structure_id]['devices']
+        devices = result["structure"][structure_id]["devices"]
         if devices.any?
-          self.device_id = devices.first.split('.')[1]
+          self.device_id = devices.first.split(".")[1]
         end
       end
 
@@ -149,8 +149,8 @@ module NestThermostat
 
     def method_missing(name, *args, &block)
       if %i[away leaf].include?(name)
-        warn "`#{name}' has been replaced with `#{name}?'. Support for " +
-        "`#{name}' without the '?' will be dropped in future versions."
+        warn "`#{name}" has been replaced with `#{name}?". Support for " +
+        "`#{name}" without the "?" will be dropped in future versions."
         return self.send("#{name}?", *args)
       end
 
@@ -163,11 +163,11 @@ module NestThermostat
       login_request = HTTParty.post(
       self.login_url,
       body:    { username: email, password: password },
-      headers: { 'User-Agent' => self.user_agent }
+      headers: { "User-Agent" => self.user_agent }
       )
 
       @auth ||= JSON.parse(login_request.body)
-      raise 'Invalid login credentials' if auth.has_key?('error') && @auth['error'] == "access_denied"
+      raise "Invalid login credentials" if auth.has_key?("error") && @auth["error"] == "access_denied"
     end
 
     def convert_temp_for_get(degrees)

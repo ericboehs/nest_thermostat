@@ -1,12 +1,12 @@
-require 'spec_helper'
+require "spec_helper"
 
 module NestThermostat
-  # Run all the requests through VCR, but don't match on the host or URI as they vary
+  # Run all the requests through VCR, but don"t match on the host or URI as they vary
   # match on all the other parts of the request to find the unique request in the cassette
   describe Nest, :vcr => { :match_requests_on => [:method, :path, :query, :body]} do
     before(:all) do
       VCR.use_cassette("connect to api") do
-        @nest = Nest.new(email: 'test@yahoo.com' , password: 'sekret', temperature_scale: :fahrenheit)
+        @nest = Nest.new(email: "test@yahoo.com" , password: "sekret", temperature_scale: :fahrenheit)
       end
     end
 
@@ -16,25 +16,25 @@ module NestThermostat
 
     it "detects invalid logins" do
       expect {
-        Nest.new({email: 'invalid@example.com', password: 'asdf'})
+        Nest.new({email: "invalid@example.com", password: "asdf"})
       }.to raise_error
     end
 
     it "does not remember the login email or password" do
-      @nest = Nest.new(email: 'test@yahoo.com', password: 'sekret', temperature_scale: :fahrenheit)
+      @nest = Nest.new(email: "test@yahoo.com", password: "sekret", temperature_scale: :fahrenheit)
       expect(@nest).not_to respond_to(:email)
       expect(@nest).not_to respond_to(:password)
     end
 
     it "gets the status" do
-      expect(@nest.status['device'].first[1]['mac_address']).to match(/(\d|[a-f]|[A-F])+/)
+      expect(@nest.status["device"].first[1]["mac_address"]).to match(/(\d|[a-f]|[A-F])+/)
     end
 
     it "gets the pubic ip address" do
       expect(@nest.public_ip).to match(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?$/)
     end
 
-    it "doesn't fail if there are no thermostats" do
+    it "doesn"t fail if there are no thermostats" do
       # NOTE: To generate the VCR cassette for this test, we removed all of the devices and captured the API results
       expect { @nest.current_temperature }.not_to raise_error
     end
@@ -82,23 +82,23 @@ module NestThermostat
     end
 
     it "sets the temperature" do
-      @nest.temp = '74'
+      @nest.temp = "74"
       expect(@nest.temp.round).to eq(74)
 
-      @nest.temperature = '73'
+      @nest.temperature = "73"
       expect(@nest.temperature).to eq(73)
     end
 
     it "sets the low temperature" do
-      @nest.temp_low = '73'
+      @nest.temp_low = "73"
       expect(@nest.temp_low.round).to eq(73)
 
-      @nest.temperature_low = '74'
+      @nest.temperature_low = "74"
       expect(@nest.temperature_low.round).to eq(74)
     end
 
     it "sets the high temperature" do
-      @nest.temp_high = '73'
+      @nest.temp_high = "73"
       expect(@nest.temp_high.round).to eq(73)
 
       @nest.temperature_high = 74
