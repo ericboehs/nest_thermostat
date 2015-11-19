@@ -1,12 +1,13 @@
 require "spec_helper"
 
 module NestThermostat
-  # Run all the requests through VCR, but don"t match on the host or URI as they vary
+  # Run all the requests through VCR,
+  # but don"t match on the host or URI as they vary
   # match on all the other parts of the request to find the unique request in the cassette
-  describe Nest, :vcr => { :match_requests_on => [:method, :path, :query, :body]} do
+  describe Nest, vcr: { match_requests_on: [:method, :path, :query, :body] } do
     before(:all) do
       VCR.use_cassette("connect to api") do
-        @nest = Nest.new(email: "test@yahoo.com" , password: "sekret", temperature_scale: :fahrenheit)
+        @nest = Nest.new(email: "test@yahoo.com", password: "sekret", temperature_scale: :fahrenheit)
       end
     end
 
@@ -16,7 +17,7 @@ module NestThermostat
 
     it "detects invalid logins" do
       expect {
-        Nest.new({email: "invalid@example.com", password: "asdf"})
+        Nest.new({ email: "invalid@example.com", password: "asdf" })
       }.to raise_error
     end
 
@@ -50,7 +51,7 @@ module NestThermostat
     it "sets away status" do
       # Freeze time so we always use the same time (makes VCR happy)
       Timecop.freeze(Time.local(2015, 10, 27, 10, 5, 0))
-      @nest.away= true
+      @nest.away = true
       expect(@nest.away?).to be(true)
       @nest.away = false
       expect(@nest.away?).to be(false)

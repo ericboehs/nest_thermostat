@@ -17,7 +17,7 @@ module NestThermostat
       # User specified information
       self.temperature_scale = config[:temperature_scale] || config[:temp_scale] || :fahrenheit
       @login_url  = config[:login_url] || "https://home.nest.com/user/login"
-      @user_agent = config[:user_agent] ||"Nest/1.1.0.10 CFNetwork/548.0.4"
+      @user_agent = config[:user_agent] || "Nest/1.1.0.10 CFNetwork/548.0.4"
 
       # Login and get token, user_id and URLs
       perform_login(config[:email], config[:password])
@@ -204,19 +204,19 @@ module NestThermostat
     def post_to_shared_api(body)
       HTTParty.post("#{self.transport_url}/v2/put/shared.#{self.device_id}",
                     body: body.to_json,
-                    headers: self.headers)
+                    headers: headers)
     end
 
     def post_to_device_api(body)
       HTTParty.post("#{self.transport_url}/v2/put/device.#{self.device_id}",
                     body: body.to_json,
-                    headers: self.headers)
+                    headers: headers)
     end
 
     def post_to_structure_api(body)
-      HTTParty.post("#{self.transport_url}/v2/put/structure.#{self.structure_id}",
+      HTTParty.post("#{self.transport_url}/v2/put/structure.#{structure_id}",
                     body: body.to_json,
-                    headers: self.headers)
+                    headers: headers)
     end
 
     def status_data(key, id)
@@ -225,19 +225,19 @@ module NestThermostat
     end
 
     def structure
-      status_data("structure", self.structure_id)
+      status_data("structure", structure_id)
     end
 
     def shared
-      status_data("shared", self.device_id)
+      status_data("shared", device_id)
     end
 
     def device
-      status_data("device", self.device_id)
+      status_data("device", device_id)
     end
 
     def track
-      status_data("track", self.device_id)
+      status_data("track", device_id)
     end
   end
 end
