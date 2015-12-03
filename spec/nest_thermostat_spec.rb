@@ -125,11 +125,11 @@ module NestThermostat
     it "gets the alt heat state" do
       expect(@nest.alt_heat_state).to_not be_nil
     end
-      
+
     it "gets the main heat state" do
       expect(@nest.main_heat_state).to_not be_nil
     end
-    
+
     it "gets the main AC state" do
       expect(@nest.main_ac_state).to_not be_nil
     end
@@ -137,6 +137,5 @@ module NestThermostat
     it "gets the target temperature type" do
       expect(%w[heat cool]).to include(@nest.target_temp_type)
     end
-
   end
 end

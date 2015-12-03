@@ -135,19 +135,19 @@ module NestThermostat
     end
 
     def alt_heat_state
-      status["shared"][self.device_id]["hvac_alt_heat_state"]
+      status["shared"][device_id]["hvac_alt_heat_state"]
     end
-    
+
     def main_heat_state
-      status["shared"][self.device_id]["hvac_heater_state"]
+      status["shared"][device_id]["hvac_heater_state"]
     end
-    
+
     def main_ac_state
-      status["shared"][self.device_id]["hvac_ac_state"]
+      status["shared"][device_id]["hvac_ac_state"]
     end
 
     def target_temp_type
-      status["shared"][self.device_id]["target_temperature_type"]
+      status["shared"][device_id]["target_temperature_type"]
     end
 
     def temperature_scale=(scale)
